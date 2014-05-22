@@ -1,0 +1,13 @@
+<% provide(:title, 'All Opportunities') %>
+<h1><%= yield(:title) %></h1>
+
+<%= will_paginate %>
+<ul class="volunteers">
+  <% @volunteers.each do |volunteer| %>
+    <li>
+      <%= link_to volunteer.name, volunteer %>
+      (<%= volunteer.host %>)
+    </li>
+  <% end %>
+</ul>
+<%= will_paginate %>

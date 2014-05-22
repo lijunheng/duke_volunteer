@@ -1,5 +1,18 @@
-<%= @volunteer.name %>
-<%= @volunteer.description %>
-<%= @volunteer.host %>
-<%= @volunteer.contact %>
-<%= @volunteer.date %>
+<% provide(:title, @volunteer.name) %>
+<div class="row">
+	<aside class="span4">
+		<section>
+			<h3>
+				<%= @volunteer.name %>
+			</h3>
+		</section>
+		<section>
+			<p>Date: <%= @volunteer.date %></p>
+			<p>Host: <%= @volunteer.host %></p>
+			<p>Contact: <%= @volunteer.contact %></p>
+		</section>
+	</aside>
+	<div class="span8">
+		<p><%= @volunteer.description %></p>
+	</div>
+</div>

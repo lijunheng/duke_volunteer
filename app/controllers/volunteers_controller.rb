@@ -1,4 +1,9 @@
 class VolunteersController < ApplicationController
+  
+  def index
+    @volunteers = Volunteer.paginate(page: params[:page])
+  end
+
   def new
   	@volunteer = Volunteer.new
   end
@@ -16,6 +21,19 @@ class VolunteersController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def edit
+    @volunteer = Volunteer.find(params[:id])
+    if @volunteer.update_attributes(volunteer_params)
+      flash[:success] = "Opportunity updated!"
+      redirect_to @volunteer
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
   end
 
   private
