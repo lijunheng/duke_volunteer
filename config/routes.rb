@@ -1,5 +1,5 @@
 DukeVolunteer::Application.routes.draw do
-  get "volunteers/new"
+  resources :volunteers
   root 'static_pages#volunteer'
   match '/about', to: 'static_pages#about', via: 'get'
   # The priority is based upon order of creation: first created -> highest priority.
