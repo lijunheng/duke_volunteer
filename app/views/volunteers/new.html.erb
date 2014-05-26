@@ -11,14 +11,8 @@
       <%= f.label :description %>
       <%= f.text_area :description %>
 
-      <%= f.label :host %>
-      <%= f.text_field :host %>
-
-      <%= f.label :date %>
-      <%= f.text_field :date %>
-
-      <%= f.label :contact %>
-      <%= f.text_field :contact %>
+      <%= f.label :datetime, "Time" %>
+      <%= f.datetime_field :datetime %>
 
       <%= f.submit "Create volunteer opportunity", class: "btn btn-large btn-primary" %>
     <% end %>

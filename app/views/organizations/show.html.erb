@@ -7,15 +7,20 @@
 			</h3>
 		</section>
 		<section>
-			<p>Location: <%= Location.find_by(id: @organization.geo_location).address %></p>
-			<p>Contact: <%= @organization.contact_information %></p>
-			<p><%= link_to "Create new listing", new_organization_volunteer_path(@organization), :class => 'btn btn-default btn-sm' %></p>
+			<%= image_tag "http://maps.google.com/maps/api/staticmap?size=290x290&sensor=false&zoom=16&markers=#{@location.latitude}%2C#{@location.longitude}" %>
+			<a href="https://www.google.com/maps/preview?q=<%= @location.latitude %>,<%= @location.longitude%>" target="_blank">Google Maps</a>
+			<p>Location: <%= @location.address %></p>
+			<p>Primary contact: <%= @organization.contact_information %></p>
+			<p>Website: <a href="<%= @organization.website %>" target="_blank"><%= @organization.website %></a>
+			<p><%= link_to "List new opportunity", new_organization_volunteer_path(@organization), :class => 'btn btn-default btn-sm' %></p>
 			<p><%= link_to "Back", root_path %></p>
 		</section>
 	</aside>
 	<div class="span8">
+		<h3>Description</h3>
+		<p><%= @organization.description %></p>
 		<% if @organization.volunteers.any? %>
-      		<h3>Opportunities (<%= @organization.volunteers.count %>)</h3>
+      		<h3>Opportunities</h3>
       		<ol class="to_be_listed">
         		<%= render @volunteers %>
       		</ol>

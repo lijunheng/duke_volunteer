@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140526162916) do
+ActiveRecord::Schema.define(version: 20140526213256) do
 
   create_table "locations", force: true do |t|
     t.string   "address"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20140526162916) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "organization_id"
+    t.datetime "datetime"
   end
 
   add_index "volunteers", ["organization_id", "created_at"], name: "index_volunteers_on_organization_id_and_created_at"

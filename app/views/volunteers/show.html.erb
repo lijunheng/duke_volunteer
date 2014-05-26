@@ -7,9 +7,8 @@
 			</h3>
 		</section>
 		<section>
-			<p>Date: <%= @volunteer.date %></p>
-			<p>Host: <%= @volunteer.host %></p>
-			<p>Contact: <%= @volunteer.contact %></p>
+			<p>Time: <%= @volunteer.date %></p>
+			<p><%= link_to "Back", organization_path(@organization) %></p>
 		</section>
 	</aside>
 	<div class="span8">

@@ -11,6 +11,7 @@ class OrganizationsController < ApplicationController
   def show
   	@organization = Organization.find(params[:id])
     @volunteers = @organization.volunteers.paginate(page: params[:page])
+    @location = Location.find_by(id: @organization.geo_location)
   end
 
   def create
@@ -49,7 +50,7 @@ class OrganizationsController < ApplicationController
   private
 
   	def organization_params 
-  		params.require(:organization).permit(:name, :contact_information)
+  		params.require(:organization).permit(:name, :contact_information, :website, :description)
   	end
 
     def location_params

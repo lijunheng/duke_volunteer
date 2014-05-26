@@ -11,17 +11,16 @@ class VolunteersController < ApplicationController
   end
 
   def show
-  	@volunteer = Volunteer.find(params[:id])
+    @volunteer = Volunteer.find(params[:id])
+  	@volunteer = @organization.volunteers.find(params[:id])
   end
 
   def create
    	@volunteer = Volunteer.new(volunteer_params)
     @volunteer = @organization.volunteers.new(volunteer_params)
-   	@volunteer.active = true
-    @volunteer.organization_id = 1
     if @volunteer.save
     	flash[:success] = "Opportunity created!"
-    	redirect_to [@organization, @volunteer]
+    	redirect_to @organization
     else
       render 'new'
     end
@@ -43,7 +42,7 @@ class VolunteersController < ApplicationController
   private
 
   	def volunteer_params 
-  		params.require(:volunteer).permit(:name, :description, :host, :date, :contact)
+  		params.require(:volunteer).permit(:name, :description, :date)
   	end
 
     def load_organization
