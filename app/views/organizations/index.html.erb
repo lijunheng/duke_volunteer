@@ -2,6 +2,13 @@
 <h1><%= yield(:title) %></h1>
 
 <%= will_paginate %>
+<%= form_tag organizations_path, :class => 'form-horizontal', :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search], :placeholder => 'Search organization name...', :id => 'search_text_field' %>
+    <%= submit_tag "Search organizations", class: "btn btn-default btn-sm", :name => nil %>
+    <%= link_to "List new organization", new_organization_path, :class => 'btn btn-default btn-sm' %>
+  </p>
+<% end %>
 <ul class="to_be_listed">
   <% @organizations.each do |organization| %>
     <li>

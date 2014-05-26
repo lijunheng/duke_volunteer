@@ -1,6 +1,6 @@
 class OrganizationsController < ApplicationController
   def index
-    @organizations = Organization.paginate(page: params[:page])
+    @organizations = Organization.paginate(page: params[:page]).search(params[:search])
   end
 
   def new

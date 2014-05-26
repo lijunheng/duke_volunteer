@@ -9,7 +9,8 @@
 		<section>
 			<p>Location: <%= @organization.location %></p>
 			<p>Contact: <%= @organization.contact_information %></p>
-			<p><%= link_to "Create new listing", new_organization_volunteer_path(@organization) %>
+			<p><%= link_to "Create new listing", new_organization_volunteer_path(@organization), :class => 'btn btn-default btn-sm' %></p>
+			<p><%= link_to "Back", root_path %></p>
 		</section>
 	</aside>
 	<div class="span8">
