@@ -1,0 +1,24 @@
+<% provide(:title, @organization.name) %>
+<div class="row">
+	<aside class="span4">
+		<section>
+			<h3>
+				<%= @organization.name %>
+			</h3>
+		</section>
+		<section>
+			<p>Location: <%= @organization.location %></p>
+			<p>Contact: <%= @organization.contact_information %></p>
+			<p><%= link_to "Create new listing", new_organization_volunteer_path(@organization) %>
+		</section>
+	</aside>
+	<div class="span8">
+		<% if @organization.volunteers.any? %>
+      		<h3>Opportunities (<%= @organization.volunteers.count %>)</h3>
+      		<ol class="to_be_listed">
+        		<%= render @volunteers %>
+      		</ol>
+      		<%= will_paginate @volunteers %>
+    	<% end %>
+	</div>
+</div>

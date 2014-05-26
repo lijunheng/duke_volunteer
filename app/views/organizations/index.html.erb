@@ -1,0 +1,13 @@
+<% provide(:title, 'All Organizations') %>
+<h1><%= yield(:title) %></h1>
+
+<%= will_paginate %>
+<ul class="to_be_listed">
+  <% @organizations.each do |organization| %>
+    <li>
+      <%= link_to organization.name, organization %>
+      (<%= organization.location %>)
+    </li>
+  <% end %>
+</ul>
+<%= will_paginate %>

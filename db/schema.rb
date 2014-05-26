@@ -11,17 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140522172421) do
+ActiveRecord::Schema.define(version: 20140523163449) do
+
+  create_table "organizations", force: true do |t|
+    t.text     "name"
+    t.text     "location"
+    t.text     "contact_information"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "volunteers", force: true do |t|
     t.string   "name"
-    t.text     "description", limit: 255
+    t.text     "description",     limit: 255
     t.string   "host"
     t.string   "date"
     t.string   "contact"
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "organization_id"
   end
+
+  add_index "volunteers", ["organization_id", "created_at"], name: "index_volunteers_on_organization_id_and_created_at"
 
 end

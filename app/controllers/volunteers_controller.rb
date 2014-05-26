@@ -1,4 +1,5 @@
 class VolunteersController < ApplicationController
+  before_filter :load_organization
   
   def index
     @volunteers = Volunteer.paginate(page: params[:page])
@@ -6,6 +7,7 @@ class VolunteersController < ApplicationController
 
   def new
   	@volunteer = Volunteer.new
+    @volunteer = @organization.volunteers.new
   end
 
   def show
@@ -14,10 +16,12 @@ class VolunteersController < ApplicationController
 
   def create
    	@volunteer = Volunteer.new(volunteer_params)
+    @volunteer = @organization.volunteers.new(volunteer_params)
    	@volunteer.active = true
+    @volunteer.organization_id = 1
     if @volunteer.save
     	flash[:success] = "Opportunity created!"
-    	redirect_to @volunteer
+    	redirect_to [@organization, @volunteer]
     else
       render 'new'
     end
@@ -41,5 +45,9 @@ class VolunteersController < ApplicationController
   	def volunteer_params 
   		params.require(:volunteer).permit(:name, :description, :host, :date, :contact)
   	end
+
+    def load_organization
+      @organization = Organization.find(params[:organization_id])
+    end
   
 end

@@ -2,7 +2,7 @@
 <h1><%= yield(:title) %></h1>
 
 <%= will_paginate %>
-<ul class="volunteers">
+<ul class="to_be_listed">
   <% @volunteers.each do |volunteer| %>
     <li>
       <%= link_to volunteer.name, volunteer %>
