@@ -1,4 +1,6 @@
 DukeVolunteer::Application.routes.draw do
+  resources :locations
+
   resources :organizations do
     resources :volunteers
   end

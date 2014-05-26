@@ -5,6 +5,7 @@ class OrganizationsController < ApplicationController
 
   def new
   	@organization = Organization.new
+    @geo_location = Location.new
   end
 
   def show
@@ -14,6 +15,12 @@ class OrganizationsController < ApplicationController
 
   def create
    	@organization = Organization.new(organization_params)
+    @geo_location = Location.new(location_params)
+    if @geo_location.save
+    else
+      render 'new'
+    end
+    @organization.geo_location = @geo_location
     if @organization.save
     	flash[:success] = "Organization listed!"
     	redirect_to @organization
@@ -42,6 +49,10 @@ class OrganizationsController < ApplicationController
   private
 
   	def organization_params 
-  		params.require(:organization).permit(:name, :location, :contact_information)
+  		params.require(:organization).permit(:name, :contact_information)
   	end
+
+    def location_params
+      params.require(:location).permit(:address)
+    end
 end
