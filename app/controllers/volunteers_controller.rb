@@ -28,9 +28,13 @@ class VolunteersController < ApplicationController
 
   def edit
     @volunteer = Volunteer.find(params[:id])
+  end
+
+  def update
+    @volunteer = Volunteer.find(params[:id])
     if @volunteer.update_attributes(volunteer_params)
       flash[:success] = "Opportunity updated!"
-      redirect_to @volunteer
+      redirect_to @organization
     else
       render 'edit'
     end
@@ -42,7 +46,7 @@ class VolunteersController < ApplicationController
   private
 
   	def volunteer_params 
-  		params.require(:volunteer).permit(:name, :description, :date)
+  		params.require(:volunteer).permit(:name, :description)
   	end
 
     def load_organization

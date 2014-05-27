@@ -1,4 +1,4 @@
 <li>
-  <b><%= volunteer.name %></b>
+  <b><%= volunteer.name %></b> (<%= link_to "Edit", edit_organization_volunteer_path(@organization, volunteer) %>)
   <br><%= volunteer.description %>
 </li>

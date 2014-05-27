@@ -32,12 +32,19 @@ class OrganizationsController < ApplicationController
 
   def edit
     @organization = Organization.find(params[:id])
+    @geo_location = @organization.location
   end
 
   def update
     @organization = Organization.find(params[:id])
+    @geo_location = @organization.location
+
+    if @geo_location.update_attributes(location_params)
+    else
+      render 'edit'
+    end
     if @organization.update_attributes(organization_params)
-      flash[:success] = "Opportunity updated!"
+      flash[:success] = "Organization updated!"
       redirect_to @organization
     else
       render 'edit'

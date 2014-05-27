@@ -13,6 +13,7 @@
 			<p>Primary contact: <%= @organization.contact_information %></p>
 			<p>Website: <a href="<%= @organization.website %>" target="_blank"><%= @organization.website %></a>
 			<p><%= link_to "List new opportunity", new_organization_volunteer_path(@organization), :class => 'btn btn-default btn-sm' %></p>
+			<p><%= link_to "Edit", edit_organization_path %></p>
 			<p><%= link_to "Back", root_path %></p>
 		</section>
 	</aside>
