@@ -41,6 +41,9 @@ class VolunteersController < ApplicationController
   end
 
   def destroy
+    Volunteer.find(params[:id]).destroy
+    flash[:success] = "Listing removed."
+    redirect_to @organization
   end
 
   private

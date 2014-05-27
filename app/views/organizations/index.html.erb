@@ -9,11 +9,16 @@
     <%= link_to "List new organization", new_organization_path, :class => 'btn btn-default btn-sm' %>
   </p>
 <% end %>
-<ul class="to_be_listed">
+<table class="table-hover table-striped" id="organization_table">
+  <tr>
+    <th><%= sortable "name" %></th>
+    <th><%= sortable "distance", "Distance from Duke Chapel" %></th>
+  </tr>
   <% @organizations.each do |organization| %>
-    <li>
-      <%= link_to organization.name, organization %>
-    </li>
+  <tr>
+    <th><%= link_to organization.name, organization %></th>
+    <th><%= ((organization.location.distance_to("Duke University West Campus, Durham, NC")*1000).round / 1000.00)  %> miles</th>
+  </tr>
   <% end %>
-</ul>
+</table>
 <%= will_paginate %>
