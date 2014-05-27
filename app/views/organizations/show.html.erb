@@ -7,8 +7,10 @@
 			</h3>
 		</section>
 		<section>
-			<iframe width="290" height="290" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/view?key=AIzaSyBYImrVSASIZ-Ttw9bQ8sW56jGIBqVTi3Y&center=<%= @location.latitude%>,<%= @location.longitude %>&zoom=15&maptype=satellite"></iframe>
-			<p>Location: <%= @location.address %></p>
+			<% if @organization.location.valid? %>
+				<iframe width="290" height="290" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/view?key=AIzaSyBYImrVSASIZ-Ttw9bQ8sW56jGIBqVTi3Y&center=<%= @location.latitude%>,<%= @location.longitude %>&zoom=15&maptype=satellite"></iframe>
+				<p>Location: <%= @location.address %></p>
+			<% end %>
 			<p>Primary contact: <%= @organization.contact_information %></p>
 			<p>Website: <a href="<%= @organization.website %>" target="_blank"><%= @organization.website %></a>
 			<p>(<%= link_to "Edit", edit_organization_path %>) (<%= link_to "Delete", organization_path, method: :delete, data: { confirm: "You sure?"} %>)</p>
