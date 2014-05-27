@@ -11,7 +11,7 @@ class OrganizationsController < ApplicationController
   def show
   	@organization = Organization.find(params[:id])
     @volunteers = @organization.volunteers.paginate(page: params[:page])
-    @location = Location.find_by(id: @organization.geo_location)
+    @location = Location.find_by(id: @organization.location)
   end
 
   def create
@@ -21,7 +21,7 @@ class OrganizationsController < ApplicationController
     else
       render 'new'
     end
-    @organization.geo_location = @geo_location
+    @organization.location = @geo_location
     if @organization.save
     	flash[:success] = "Organization listed!"
     	redirect_to @organization
