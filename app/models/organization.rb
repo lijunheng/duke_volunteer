@@ -15,10 +15,12 @@ class Organization < ActiveRecord::Base
 	end
 
 	def self.sort_by_distance
-		Organization.all.sort_by!(&:distance)
+		#Organization.select(&:distance).sort_by!(|o| o.distance || 99999999)
+		Organization.all.sort_by!{|o| o.distance || 9999999}
 	end
 
 	def self.sort_by_distance_reverse
-		Organization.all.sort_by!(&:distance).reverse
+		#Organization.select(&:distance).sort_by!(&:distance).reverse
+		Organization.all.sort_by!{|o| o.distance || 99999999 }.reverse
 	end
 end
