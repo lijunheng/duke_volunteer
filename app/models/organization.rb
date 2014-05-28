@@ -12,7 +12,9 @@ class Organization < ActiveRecord::Base
 	end
 
 	def distance
-		self.location.distance_to("Duke University West Campus, Durham, NC")
+		if self.location
+			self.location.distance_to("Duke University West Campus, Durham, NC")
+		end
 	end
 
 	def self.sort(column)
