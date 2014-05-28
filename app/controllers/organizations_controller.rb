@@ -31,13 +31,11 @@ class OrganizationsController < ApplicationController
    	@organization = Organization.new(organization_params)
     @geo_location = Location.new(location_params)
     if @geo_location.save
-    else
-      render 'new'
+      @organization.location = @geo_location
     end
-    @organization.location = @geo_location
     if @organization.save
-    	flash[:success] = "Organization listed!"
-    	redirect_to @organization
+      flash[:success] = "Organization listed!"
+      redirect_to @organization
     else
       render 'new'
     end

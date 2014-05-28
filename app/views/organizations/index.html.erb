@@ -21,7 +21,7 @@
   <tr>
     <td><%= link_to organization.name, organization %></td>
     <td>
-      <% if organization.location.valid? %>
+      <% if organization.location && organization.location.valid? %>
         <%= ((organization.location.distance_to("Duke University West Campus, Durham, NC")*1000).round / 1000.00)  %> miles
       <% end %>
     </td>
