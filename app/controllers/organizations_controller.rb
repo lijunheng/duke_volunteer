@@ -11,7 +11,7 @@ class OrganizationsController < ApplicationController
       end
     end
     if params[:tag]
-      @organizations.select! {|o| o.tag_list.include? params[:tag]}
+      @organizations = @organizations.select {|o| o.tag_list.include? params[:tag]}
     end
     @organizations = @organizations.paginate(page: params[:page])
   end
