@@ -14,6 +14,12 @@ class OrganizationsController < ApplicationController
       @organizations = @organizations.select {|o| o.tag_list.include? params[:tag]}
     end
     @organizations = @organizations.paginate(page: params[:page])
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @organizations.to_csv }
+      format.xls { send_data @organizations.to_csv(col_sep: "\t") }
+    end
   end
 
   def new

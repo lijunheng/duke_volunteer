@@ -11,6 +11,11 @@ gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
 gem 'geocoder'
 gem 'acts-as-taggable-on'
+gem 'sunspot_rails'
+
+group :development do
+  gem 'sunspot_solr'
+end
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'

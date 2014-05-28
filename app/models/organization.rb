@@ -24,4 +24,13 @@ class Organization < ActiveRecord::Base
 	def self.sort_reverse(column)
 		Organization.all.sort_by!{|o| o.send(column) || -99999999}.reverse
 	end
+
+	def self.to_csv(options = {})
+	  CSV.generate(options) do |csv|
+	    csv << column_names
+	    all.each do |organization|
+	      csv << organization.attributes.values_at(*column_names)
+	    end
+	  end
+	end
 end

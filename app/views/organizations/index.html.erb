@@ -1,5 +1,10 @@
 <% provide(:title, 'All Organizations') %>
 <h1><%= yield(:title) %></h1>
+<p>
+  Download:
+  <%= link_to "CSV", organizations_path(format: "csv") %> |
+  <%= link_to "Excel", organizations_path(format: "xls") %>
+</p>
 
 <%= will_paginate %>
 <%= form_tag organizations_path, :class => 'form-horizontal', :method => 'get' do %>
@@ -22,7 +27,7 @@
     <td><%= link_to organization.name, organization %></td>
     <td>
       <% if organization.location && organization.location.valid? %>
-        <%= organization.distance  %> miles
+        <%= ((organization.distance*1000).round/1000.00)  %> miles
       <% end %>
     </td>
     <td><%= raw organization.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></td>
