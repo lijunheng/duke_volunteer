@@ -7,7 +7,7 @@
 			</h3>
 		</section>
 		<section>
-			<% if @organization.location.valid? %>
+			<% if @organization.location && @organization.location.valid? %>
 				<iframe width="290" height="290" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/view?key=AIzaSyBYImrVSASIZ-Ttw9bQ8sW56jGIBqVTi3Y&center=<%= @location.latitude%>,<%= @location.longitude %>&zoom=15&maptype=satellite"></iframe>
 				<p><i class="icon-map-marker"></i> <%= @location.address %></p>
 			<% end %>
