@@ -22,6 +22,9 @@
         <%= g.text_field :address %>
       <% end %>
 
+      <%= f.label :tag_list, "Tags (separated by commas)" %>
+      <%= f.text_field :tag_list %>
+
       <%= f.submit "List organization", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>

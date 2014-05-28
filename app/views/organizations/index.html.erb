@@ -5,6 +5,8 @@
 <%= form_tag organizations_path, :class => 'form-horizontal', :method => 'get' do %>
   <p>
     <%= text_field_tag :search, params[:search], :placeholder => 'Search organization name...', :id => 'search_text_field' %>
+    <%= hidden_field_tag :direction, params[:direction] %>
+    <%= hidden_field_tag :sort, params[:sort] %>
     <%= submit_tag "Search organizations", class: "btn btn-default btn-sm", :name => nil %>
     <%= link_to "List new organization", new_organization_path, :class => 'btn btn-default btn-sm' %>
   </p>
@@ -13,11 +15,17 @@
   <tr id="header">
     <th><%= sortable "name" %></th>
     <th><%= sortable "distance", "Distance from Duke Chapel" %></th>
+    <th>Tags</th>
   </tr>
   <% @organizations.each do |organization| %>
   <tr>
-    <td><%= link_to organization.name, organization %></th>
-    <td><% if organization.location.valid? %><%= ((organization.location.distance_to("Duke University West Campus, Durham, NC")*1000).round / 1000.00)  %> miles<% end %></th>
+    <td><%= link_to organization.name, organization %></td>
+    <td>
+      <% if organization.location.valid? %>
+        <%= ((organization.location.distance_to("Duke University West Campus, Durham, NC")*1000).round / 1000.00)  %> miles
+      <% end %>
+    </td>
+    <td><%= raw organization.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></td>
   </tr>
   <% end %>
 </table>

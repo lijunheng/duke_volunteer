@@ -1,12 +1,13 @@
 class Organization < ActiveRecord::Base
 	has_many :volunteers, dependent: :destroy
 	has_one :location
+	acts_as_taggable_on :tags
 
 	def self.search(search)
 		if search
-			find(:all, :conditions => ['lower(name) LIKE ?', "%#{search}%".downcase]) 
+			where('name LIKE ?', "%#{search}%")
 		else
-			find(:all)
+			scoped
 		end
 	end
 
@@ -14,13 +15,11 @@ class Organization < ActiveRecord::Base
 		self.location.distance_to("Duke University West Campus, Durham, NC")
 	end
 
-	def self.sort_by_distance
-		#Organization.select(&:distance).sort_by!(|o| o.distance || 99999999)
-		Organization.all.sort_by!{|o| o.distance || 9999999}
+	def self.sort(column)
+		Organization.all.sort_by!{|o| o.send(column) || 99999999}
 	end
 
-	def self.sort_by_distance_reverse
-		#Organization.select(&:distance).sort_by!(&:distance).reverse
-		Organization.all.sort_by!{|o| o.distance || 99999999 }.reverse
+	def self.sort_reverse(column)
+		Organization.all.sort_by!{|o| o.send(column) || -99999999}.reverse
 	end
 end

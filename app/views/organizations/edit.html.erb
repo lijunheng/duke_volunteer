@@ -7,7 +7,7 @@
       
       <%= f.label :name %>
       <%= f.text_field :name %>
-
+      
       <%= f.label :contact_information %>
       <%= f.text_field :contact_information %>
 
@@ -21,6 +21,9 @@
         <%= g.label :address %>
         <%= g.text_field :address %>
       <% end %>
+
+      <%= f.label :tag_list, "Tags (separated by commas)" %>
+      <%= f.text_field :tag_list %>
 
       <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
     <% end %>

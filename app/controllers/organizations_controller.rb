@@ -3,14 +3,15 @@ class OrganizationsController < ApplicationController
 
   def index
     @organizations = Organization.search(params[:search])
-    if params[:sort] == "distance"
+    if params[:sort]
       if params[:direction] == "asc"
-        @organizations = Organization.sort_by_distance
+        @organizations = @organizations.sort(params[:sort])
       else
-        @organizations = Organization.sort_by_distance_reverse
+        @organizations = @organizations.sort_reverse(params[:sort])
       end
-    else
-      @organizations = Organization.order(sort_column + " " + sort_direction)
+    end
+    if params[:tag]
+      @organizations.select! {|o| o.tag_list.include? params[:tag]}
     end
     @organizations = @organizations.paginate(page: params[:page])
   end
@@ -72,7 +73,7 @@ class OrganizationsController < ApplicationController
   private
 
   	def organization_params 
-  		params.require(:organization).permit(:name, :contact_information, :website, :description)
+  		params.require(:organization).permit(:name, :contact_information, :website, :description, :tag_list)
   	end
 
     def location_params

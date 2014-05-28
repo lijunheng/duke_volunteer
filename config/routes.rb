@@ -4,6 +4,7 @@ DukeVolunteer::Application.routes.draw do
   resources :organizations do
     resources :volunteers
   end
+  get 'tags/:tag', to: 'organizations#index', as: :tag
   root 'organizations#index'
   match '/about', to: 'static_pages#about', via: 'get'
   # The priority is based upon order of creation: first created -> highest priority.
