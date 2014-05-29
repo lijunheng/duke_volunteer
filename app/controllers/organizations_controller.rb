@@ -38,7 +38,7 @@ class OrganizationsController < ApplicationController
     @geo_location = Location.new(location_params)
     if @geo_location.save
       @organization.location = @geo_location
-      @organization.distance = @organization.location.distance_to("Duke University West Campus, Durham, NC")
+      @organization.distance = @geo_location.distance_to("Duke University West Campus, Durham, NC")
     end
     if @organization.save
       flash[:success] = "Organization listed!"
