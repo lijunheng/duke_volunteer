@@ -1,7 +1,7 @@
 CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL);
 CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version");
 CREATE TABLE "volunteers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "description" text(255), "host" varchar(255), "date" varchar(255), "contact" varchar(255), "active" boolean, "created_at" datetime, "updated_at" datetime, "organization_id" integer, "datetime" datetime);
-CREATE TABLE "organizations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" text, "contact_information" text, "created_at" datetime, "updated_at" datetime, "geo_location" location, "description" text, "website" text);
+CREATE TABLE "organizations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" text, "contact_information" text, "created_at" datetime, "updated_at" datetime, "geo_location" location, "description" text, "website" text, "distance" float);
 CREATE INDEX "index_volunteers_on_organization_id_and_created_at" ON "volunteers" ("organization_id", "created_at");
 CREATE TABLE "locations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "address" varchar(255), "latitude" float, "longitude" float, "created_at" datetime, "updated_at" datetime, "organization_id" integer);
 CREATE TABLE "tags" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "taggings_count" integer DEFAULT 0);
@@ -33,3 +33,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140527222252');
 INSERT INTO schema_migrations (version) VALUES ('20140527222253');
 
 INSERT INTO schema_migrations (version) VALUES ('20140527222254');
+
+INSERT INTO schema_migrations (version) VALUES ('20140529025149');

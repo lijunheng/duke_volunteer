@@ -2,14 +2,14 @@ class OrganizationsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @organizations = Organization.search(params[:search])
-    if params[:sort]
-      if params[:direction] == "asc"
-        @organizations = @organizations.sort(params[:sort])
-      else
-        @organizations = @organizations.sort_reverse(params[:sort])
-      end
-    end
+    @organizations = Organization.search(params[:search]).order(sort_column + " " + sort_direction)
+    #if params[:sort]
+    #  if params[:direction] == "asc"
+    #   @organizations = @organizations.sort(params[:sort])
+    #  else
+    #    @organizations = @organizations.sort_reverse(params[:sort])
+    #  end
+    #end
     if params[:tag]
       @organizations = @organizations.select {|o| o.tag_list.include? params[:tag]}
     end
@@ -38,6 +38,7 @@ class OrganizationsController < ApplicationController
     @geo_location = Location.new(location_params)
     if @geo_location.save
       @organization.location = @geo_location
+      @organization.distance = @organization.location.distance_to("Duke University West Campus, Durham, NC")
     end
     if @organization.save
       flash[:success] = "Organization listed!"
@@ -57,6 +58,8 @@ class OrganizationsController < ApplicationController
     @geo_location = @organization.location
 
     if @geo_location.update_attributes(location_params)
+      @organization.distance = @geo_location.distance_to("Duke University West Campus, Durham, NC")
+      @organization.save!
     else
       render 'edit'
     end

@@ -11,11 +11,11 @@ class Organization < ActiveRecord::Base
 		end
 	end
 
-	def distance
-		if self.location
-			self.location.distance_to("Duke University West Campus, Durham, NC")
-		end
-	end
+	#def distance
+	#	if self.location
+	#		self.location.distance_to("Duke University West Campus, Durham, NC")
+	#	end
+	#end
 
 	def self.sort(column)
 		Organization.all.sort_by!{|o| o.send(column) || 99999999}
