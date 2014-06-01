@@ -37,6 +37,7 @@ class OrganizationsController < ApplicationController
    	@organization = Organization.new(organization_params)
     @geo_location = Location.new(location_params)
     if @geo_location.save
+      @organization.address = @geo_location.address
       @organization.location = @geo_location
       @organization.distance = @geo_location.distance_to("Duke University West Campus, Durham, NC")
     end
