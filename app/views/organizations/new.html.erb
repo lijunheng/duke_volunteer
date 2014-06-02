@@ -6,7 +6,7 @@
       <%= render 'shared/error_messages', object: f.object %>
 
       <%= f.label :name %>
-      <%= f.text_field :name %>
+      <%= f.text_field(:name, :data => { :validation => "required", "validation-error-msg" => "Name is required."}) %>
 
       <%= f.label :contact_information %>
       <%= f.text_field :contact_information %>
@@ -19,12 +19,6 @@
 
       <%= f.label :address %>
       <%= f.text_field :address %>
-
-      <!--<%= fields_for @geo_location do |g| %>
-        <%= render 'shared/error_messages', object: g.object %>
-        <%= g.label :address %>
-        <%= g.text_field :address %>
-      <% end %>-->
 
       <%= f.label :tag_list, "Tags (separated by commas)" %>
       <%= f.text_field :tag_list %>
