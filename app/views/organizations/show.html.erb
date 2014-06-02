@@ -9,7 +9,7 @@
 		<section>
 			<% if @organization.location && @organization.location.valid? %>
 				<iframe width="290" height="290" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/view?key=AIzaSyBYImrVSASIZ-Ttw9bQ8sW56jGIBqVTi3Y&center=<%= @location.latitude%>,<%= @location.longitude %>&zoom=15&maptype=satellite"></iframe>
-				<p><i class="icon-map-marker"></i> <%= @location.address %></p>
+				<p><i class="icon-map-marker"></i> <%= @organization.address %></p>
 			<% end %>
 			<% unless @organization.contact_information.blank? %>
 				<p><i class="icon-question-sign"></i> <%= @organization.contact_information %></p>

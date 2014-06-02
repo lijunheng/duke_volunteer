@@ -3,13 +3,6 @@ class OrganizationsController < ApplicationController
 
   def index
     @organizations = Organization.search(params[:search]).order(sort_column + " " + sort_direction)
-    #if params[:sort]
-    #  if params[:direction] == "asc"
-    #   @organizations = @organizations.sort(params[:sort])
-    #  else
-    #    @organizations = @organizations.sort_reverse(params[:sort])
-    #  end
-    #end
     if params[:tag]
       @organizations = @organizations.select {|o| o.tag_list.include? params[:tag]}
     end
@@ -35,9 +28,8 @@ class OrganizationsController < ApplicationController
 
   def create
    	@organization = Organization.new(organization_params)
-    @geo_location = Location.new(location_params)
+    @geo_location = Location.create(address: @organization.address)
     if @geo_location.save
-      @organization.address = @geo_location.address
       @organization.location = @geo_location
       @organization.distance = @geo_location.distance_to("Duke University West Campus, Durham, NC")
     end
@@ -81,7 +73,7 @@ class OrganizationsController < ApplicationController
   private
 
   	def organization_params 
-  		params.require(:organization).permit(:name, :contact_information, :website, :description, :tag_list)
+  		params.require(:organization).permit(:name, :contact_information, :website, :address, :description, :tag_list)
   	end
 
     def location_params
