@@ -87,7 +87,9 @@ $(document).ready(function(){
 				<% end %>
 			</div>
 			<div class="tab-pane fade" id="apply">
-				<p><%= markdown(@organization.apply) %></p>
+				<% unless @organization.apply.blank? %>
+					<p><%= markdown(@organization.apply) %></p>
+				<% end %>
 			</div>
 		</div>
 	</div>
