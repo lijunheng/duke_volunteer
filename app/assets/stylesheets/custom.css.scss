@@ -167,6 +167,13 @@ input {
 }
 
 #map-canvas {
-  width: 800px;
-  height: 600px;
+  width: 100px;
+  height: 100px; 
+}
+
+#myModal {
+  display: none;
+  top: 5%;
+  left: 5%;
+  margin-left: 0;
 }

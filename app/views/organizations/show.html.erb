@@ -1,38 +1,50 @@
-<script type="text/javascript"
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdEK0CtB0yK5-3x4yA13ycWnjQWKsNVYE&sensor=FALSE">
-</script>
-<script type="text/javascript">
-$(document).ready(function(){
-
-	$("#myModal").on("shown.bs.modal", function () {
-    	renderMap();
-	});
-
-	function renderMap() {
-        var myLatlng = new google.maps.LatLng(<%= @location.latitude%>,<%= @location.longitude %>);
-		var mapOptions = {
-			center: myLatlng,
-			zoom: 13
-		};
-		var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-		var marker = new google.maps.Marker({
-		    position: myLatlng,
-		    map: map,
+<% if @organization.location && @organization.location.valid? %>
+	<script>
+		$(document).ready(function() {
+			var mapShown = false;
+			var Map = document.getElementById('map-canvas');
+			Map.style.width = $(window).width()*0.9 + "px";
+			Map.style.height = $(window).height()*0.9 + "px";
+			$('#myModal').on('shown.bs.modal', function() {
+			    if (!mapShown) {
+			    	loadScript();
+			    }
+			    mapShown = true;
+			});
 		});
-    }
-})
-</script>
+	</script>
+
+	<script>
+		function initialize() {
+	        var myLatlng = new google.maps.LatLng(<%= @location.latitude%>,<%= @location.longitude %>);
+			var mapOptions = {
+				center: myLatlng,
+				zoom: 13
+			};
+			var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+			var marker = new google.maps.Marker({
+			    position: myLatlng,
+			    map: map,
+			});
+	    }
+
+	    function loadScript() {
+	    	var script = document.createElement('script');
+	    	script.type = 'text/javascript';
+	    	script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCdEK0CtB0yK5-3x4yA13ycWnjQWKsNVYE&sensor=FALSE&' + 'callback=initialize';
+	    	document.body.appendChild(script); 
+	    }
+	</script>
+<% end %>
 
 <% provide(:title, @organization.name) %>
 
-<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-    	<div class="iframe-rwd">
-			<div id="map-canvas"></div>
-		</div>
-    </div>
-  </div>
+<div class="modal fade" id="myModal">
+	<div class="modal-dialog" id="map-dialog">
+  		<div class="modal-content">
+  			<div id="map-canvas"></div>
+  		</div>
+  	</div>
 </div>
 
 <div class="row">
@@ -46,9 +58,9 @@ $(document).ready(function(){
 			<% unless @organization.website.blank? %>
 				<p><i class="icon-eye-open"></i> <a href="<%= @organization.website %>" target="_blank">Visit website</a>
 			<% end %>
-			<p><% if @organization.location && @organization.location.valid? %>
-				<button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Show map</button>
-			<% end %></p>
+			<% if @organization.location && @organization.location.valid? %><p>
+				<button class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="myButton">Show map</button>
+			</p><% end %>
 			<p><%= link_to "Edit", edit_organization_path, class: "btn btn-default btn-sm" %>
 				<%= link_to "Delete", organization_path, method: :delete, data: { confirm: "You sure?"}, class: "btn btn-default btn-sm" %></p>
 			<p><%= link_to "Back", root_path %></p>
