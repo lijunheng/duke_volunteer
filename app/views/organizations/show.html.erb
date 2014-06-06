@@ -46,13 +46,13 @@ $(document).ready(function(){
 			<% unless @organization.website.blank? %>
 				<p><i class="icon-eye-open"></i> <a href="<%= @organization.website %>" target="_blank">Visit website</a>
 			<% end %>
+			<p><% if @organization.location && @organization.location.valid? %>
+				<button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Show map</button>
+			<% end %></p>
 			<p><%= link_to "Edit", edit_organization_path, class: "btn btn-default btn-sm" %>
 				<%= link_to "Delete", organization_path, method: :delete, data: { confirm: "You sure?"}, class: "btn btn-default btn-sm" %></p>
 			<p><%= link_to "Back", root_path %></p>
 			<% if @organization.tag_list.any? %><p>Tags: <%= @organization.tag_list %></p><% end %>
-			<% if @organization.location && @organization.location.valid? %>
-				<button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Show map</button>
-			<% end %>
 		</section>
 	</aside>
 	<div class="span8">
