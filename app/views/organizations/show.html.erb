@@ -1,4 +1,40 @@
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdEK0CtB0yK5-3x4yA13ycWnjQWKsNVYE&sensor=FALSE">
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$("#myModal").on("shown.bs.modal", function () {
+    	renderMap();
+	});
+
+	function renderMap() {
+        var myLatlng = new google.maps.LatLng(<%= @location.latitude%>,<%= @location.longitude %>);
+		var mapOptions = {
+			center: myLatlng,
+			zoom: 13
+		};
+		var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+		var marker = new google.maps.Marker({
+		    position: myLatlng,
+		    map: map,
+		});
+    }
+})
+</script>
+
 <% provide(:title, @organization.name) %>
+
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    	<div class="iframe-rwd">
+			<div id="map-canvas"></div>
+		</div>
+    </div>
+  </div>
+</div>
+
 <div class="row">
 	<aside class="span4">
 		<section>
@@ -14,14 +50,17 @@
 				<%= link_to "Delete", organization_path, method: :delete, data: { confirm: "You sure?"}, class: "btn btn-default btn-sm" %></p>
 			<p><%= link_to "Back", root_path %></p>
 			<% if @organization.tag_list.any? %><p>Tags: <%= @organization.tag_list %></p><% end %>
+			<% if @organization.location && @organization.location.valid? %>
+				<button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Show map</button>
+			<% end %>
 		</section>
 	</aside>
 	<div class="span8">
 		<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
 			<li class="active"><a href="#description" data-toggle="tab">Description</a></li>
 			<li><a href="#opportunities" data-toggle="tab">Opportunities</a></li>
-			<li><a href="#map" data-toggle="tab">Map</a></li>
 			<li><a href="#contact" data-toggle="tab">Contact</a></li>
+			<li><a href="#apply" data-toggle="tab">Apply</a></li>
 		</ul>
 		<div id="my-tab-content" class="tab-content">
 			<div class="tab-pane fade in active" id="description">
@@ -37,11 +76,7 @@
 		    	<% end %>
 		    </div>
 		    <div class="tab-pane fade" id="map">
-				<% if @organization.location && @organization.location.valid? %>
-					<div class="iframe-rwd">
-						<iframe width="400" height="290" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/view?key=AIzaSyBYImrVSASIZ-Ttw9bQ8sW56jGIBqVTi3Y&center=<%= @location.latitude%>,<%= @location.longitude %>&zoom=15&maptype=satellite"></iframe>
-					</div>
-				<% end %>
+		    	adsf
 			</div>
 			<div class="tab-pane fade" id="contact">
 				<% if @organization.location && @organization.location.valid? %>
@@ -50,6 +85,9 @@
 				<% unless @organization.contact_information.blank? %>
 					<p><i class="icon-question-sign"></i> <%= @organization.contact_information %></p>
 				<% end %>
+			</div>
+			<div class="tab-pane fade" id="apply">
+				<p><%= markdown(@organization.apply) %></p>
 			</div>
 		</div>
 	</div>

@@ -1,7 +1,7 @@
 <% provide(:title, 'Duke Volunteer') %>
 <h1><%= yield(:title) %></h1>
 <p>
-  Download:
+  Download data as:
   <%= link_to "CSV", organizations_path(format: "csv") %> |
   <%= link_to "Excel", organizations_path(format: "xls") %>
 </p>

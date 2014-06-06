@@ -48,15 +48,16 @@ class OrganizationsController < ApplicationController
 
   def update
     @organization = Organization.find(params[:id])
-    @geo_location = @organization.location
-
-    if @geo_location.update_attributes(location_params)
-      @organization.distance = @geo_location.distance_to("Duke University West Campus, Durham, NC")
-      @organization.save!
-    else
-      render 'edit'
-    end
     if @organization.update_attributes(organization_params)
+      @geo_location = Location.create(address: @organization.address)
+      if @geo_location.save
+        @organization.location = @geo_location
+        @organization.distance = @geo_location.distance_to("Duke University West Campus, Durham, NC")
+      else
+        @organization.location = nil
+        @organization.distance = nil
+      end
+      @organization.save!
       flash[:success] = "Organization updated!"
       redirect_to @organization
     else
@@ -73,7 +74,7 @@ class OrganizationsController < ApplicationController
   private
 
   	def organization_params 
-  		params.require(:organization).permit(:name, :contact_information, :website, :address, :description, :tag_list)
+  		params.require(:organization).permit(:name, :contact_information, :website, :address, :description, :apply, :tag_list)
   	end
 
     def location_params

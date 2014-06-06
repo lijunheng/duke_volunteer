@@ -6,8 +6,8 @@
       <%= render 'shared/error_messages', object: f.object %>
       
       <%= f.label :name %>
-      <%= f.text_field :name %>
-      
+      <%= f.text_field(:name, :data => { :validation => "required", "validation-error-msg" => "Name is required."}) %>
+
       <%= f.label :contact_information %>
       <%= f.text_field :contact_information %>
 
@@ -17,10 +17,11 @@
       <%= f.label :description %>
       <%= f.text_area :description %>
 
-      <%= fields_for @geo_location do |g| %>
-        <%= g.label :address %>
-        <%= g.text_field :address %>
-      <% end %>
+      <%= f.label :apply, "Describe how to apply or sign up" %>
+      <%= f.text_area :apply %>
+
+      <%= f.label :address %>
+      <%= f.text_field :address %>
 
       <%= f.label :tag_list, "Tags (separated by commas)" %>
       <%= f.text_field :tag_list %>
