@@ -2,11 +2,11 @@
 <h1><%= yield(:title) %></h1>
 <div class="row">
   <div class="span6 offset3">
-    <%= form_for(@organization) do |f| %>
+    <%= form_for @organization do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
 
-      <%= f.label :name %>
-      <%= f.text_field(:name, :data => { :validation => "required", "validation-error-msg" => "Name is required."}) %>
+      <%= f.label :name, "Name (required)" %>
+      <%= f.text_field :name %>
 
       <%= f.label :contact_information %>
       <%= f.text_field :contact_information %>
@@ -17,7 +17,7 @@
       <%= f.label :description %>
       <%= f.text_area :description %>
 
-      <%= f.label :apply, "Describe how to apply or sign up" %>
+      <%= f.label :apply, "Describe how to apply or sign up." %>
       <%= f.text_area :apply %>
 
       <%= f.label :address %>
