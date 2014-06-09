@@ -8,6 +8,9 @@ CREATE TABLE "tags" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" var
 CREATE TABLE "taggings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "tag_id" integer, "taggable_id" integer, "taggable_type" varchar(255), "tagger_id" integer, "tagger_type" varchar(255), "context" varchar(128), "created_at" datetime);
 CREATE UNIQUE INDEX "index_tags_on_name" ON "tags" ("name");
 CREATE UNIQUE INDEX "taggings_idx" ON "taggings" ("tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type");
+CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar(255) DEFAULT '' NOT NULL, "encrypted_password" varchar(255) DEFAULT '' NOT NULL, "reset_password_token" varchar(255), "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar(255), "last_sign_in_ip" varchar(255), "created_at" datetime, "updated_at" datetime);
+CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email");
+CREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token");
 INSERT INTO schema_migrations (version) VALUES ('20140522170728');
 
 INSERT INTO schema_migrations (version) VALUES ('20140522172421');
@@ -39,3 +42,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140529025149');
 INSERT INTO schema_migrations (version) VALUES ('20140601172259');
 
 INSERT INTO schema_migrations (version) VALUES ('20140602202659');
+
+INSERT INTO schema_migrations (version) VALUES ('20140609203318');

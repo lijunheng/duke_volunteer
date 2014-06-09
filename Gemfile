@@ -14,6 +14,7 @@ gem 'acts-as-taggable-on'
 gem 'sunspot_rails'
 gem 'redcarpet'
 gem 'jquery-validation-rails'
+gem 'devise'
 
 group :development do
   gem 'sunspot_solr'

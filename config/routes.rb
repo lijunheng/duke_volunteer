@@ -1,4 +1,5 @@
 DukeVolunteer::Application.routes.draw do
+  devise_for :users
   resources :locations
 
   resources :organizations do

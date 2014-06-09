@@ -13,7 +13,9 @@
     <%= hidden_field_tag :direction, params[:direction] %>
     <%= hidden_field_tag :sort, params[:sort] %>
     <%= submit_tag "Search organizations", class: "btn btn-default btn-sm", :name => nil %>
-    <%= link_to "List new organization", new_organization_path, :class => 'btn btn-default btn-sm' %>
+    <% if user_signed_in? %>
+      <%= link_to "List new organization", new_organization_path, :class => 'btn btn-default btn-sm' %>
+    <% end %>
   </p>
 <% end %>
 <table class="table table-striped" id="organization_table">

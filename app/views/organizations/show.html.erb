@@ -61,8 +61,10 @@
 			<% if @organization.location && @organization.location.valid? %><p>
 				<button class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="myButton">Show map</button>
 			</p><% end %>
-			<p><%= link_to "Edit", edit_organization_path, class: "btn btn-default btn-sm" %>
+			<% if user_signed_in? %>
+				<p><%= link_to "Edit", edit_organization_path, class: "btn btn-default btn-sm" %>
 				<%= link_to "Delete", organization_path, method: :delete, data: { confirm: "You sure?"}, class: "btn btn-default btn-sm" %></p>
+			<% end %>
 			<p><%= link_to "Back", root_path %></p>
 			<% if @organization.tag_list.any? %><p>Tags: <%= @organization.tag_list %></p><% end %>
 		</section>
@@ -79,7 +81,9 @@
 				<p><%= markdown(@organization.description) %></p>
 			</div>
 			<div class="tab-pane fade" id="opportunities">
-		      	<p><%= link_to "List new opportunity", new_organization_volunteer_path(@organization), :class => 'btn btn-default btn-sm' %></p>
+		      	<% if user_signed_in? %>
+		      		<p><%= link_to "List new opportunity", new_organization_volunteer_path(@organization), :class => 'btn btn-default btn-sm' %></p>
+		      	<% end %>
 		      	<% if @organization.volunteers.any? %>
 		      		<ol class="to_be_listed">
 		        		<%= render @volunteers %>

@@ -1,4 +1,4 @@
 <li>
-  <b><%= volunteer.name %></b> (<%= link_to "Edit", edit_organization_volunteer_path(@organization, volunteer) %>) (<%= link_to "Delete", organization_volunteer_path(@organization, volunteer), method: :delete, data: { confirm: "You sure?"} %>)
+  <b><%= volunteer.name %></b> <% if user_signed_in? %>(<%= link_to "Edit", edit_organization_volunteer_path(@organization, volunteer) %>) (<%= link_to "Delete", organization_volunteer_path(@organization, volunteer), method: :delete, data: { confirm: "You sure?"} %>)<% end %>
   <br><%= volunteer.description %>
 </li>
